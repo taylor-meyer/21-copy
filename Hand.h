@@ -15,7 +15,6 @@ public:
 	Hand();
 	void fillShoe();
 	void pushCard(int);
-	void removeCard(int);
 	int dealCard();
 	int sum();
 	std::string toString();

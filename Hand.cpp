@@ -18,25 +18,15 @@ void Hand::pushCard(int value)
 	this->values.push_back(value);
 }
 
-void Hand::removeCard(int value)
-{
-	std::vector<int>::iterator itr = this->values.begin();
-	while (itr != this->values.end())
-	{
-		if (*itr == value)
-		{
-			this->values.erase(itr);
-			break;
-		}
-		itr++;
-	}
-}
-
 int Hand::dealCard()
 {
-	int r = rand() % 11 + 1; // 1 to 11, inclusive
-	this->removeCard(r);
-	return r;
+	// Assigns card a value from vector based on random index, 0 - sizeof(values)
+	int r = rand() % this->values.size();
+	int card = this->values[r];
+	// Remove that from vector
+	this->values.erase(this->values.begin() + r);
+	// Return
+	return card;
 }
 
 int Hand::sum()
