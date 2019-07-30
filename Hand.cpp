@@ -39,6 +39,18 @@ int Hand::dealCard()
 	return r;
 }
 
+int Hand::sum()
+{
+	int sum = 0;
+	std::vector<int>::iterator itr = this->values.begin();
+	while (itr != this->values.end())
+	{
+		sum += *itr;
+		itr++;
+	}
+	return sum;
+}
+
 std::string Hand::toString()
 {
 	std::ostringstream ss;

@@ -39,15 +39,16 @@ int main()
 
 	Hand shoe;
 	shoe.fillShoe();
-	std::cout << "Shoe:\n" << shoe.toString() << std::endl << std::endl;
+	std::cout << "Shoe:\n" << shoe.toString() << "\n   Sum: " << shoe.sum() << std::endl << std::endl;
 
 	Hand p1;
-	std::cout << "P1:\n" << p1.toString() << std::endl << std::endl;
+	std::cout << "P1:\n" << p1.toString() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 
 	Hand p2;
-	std::cout << "P2:\n" << p2.toString() << std::endl << std::endl;
+	std::cout << "P2:\n" << p2.toString() << "\n   Sum: " << p2.sum() << std::endl << std::endl;
 
 	std::cout << "---\n\n";
+
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -58,13 +59,11 @@ int main()
 	}
 
 
+	std::cout << "Shoe:\n" << shoe.toString() << "\n   Sum: " << shoe.sum() << std::endl << std::endl;
 
+	std::cout << "P1:\n" << p1.toString() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 
-	std::cout << "Shoe:\n" << shoe.toString() << std::endl << std::endl;
-
-	std::cout << "P1:\n" << p1.toString() << std::endl << std::endl;
-
-	std::cout << "P2:\n" << p2.toString() << std::endl << std::endl;
+	std::cout << "P2:\n" << p2.toString() << "\n   Sum: " << p2.sum() << std::endl << std::endl;
 
 
 	// sys(pause) is bad practice but we are just playing for now

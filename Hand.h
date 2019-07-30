@@ -17,6 +17,7 @@ public:
 	void pushCard(int);
 	void removeCard(int);
 	int dealCard();
+	int sum();
 	std::string toString();
 };
 #endif
