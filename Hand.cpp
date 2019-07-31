@@ -7,6 +7,9 @@ Hand::Hand()
 
 void Hand::fillShoe()
 {
+	if (!this->values.empty())
+		this->values.clear();
+
 	for (int i = 1; i < 12; i++)
 	{
 		this->values.push_back(i);
@@ -87,4 +90,9 @@ std::string Hand::printReveal()
 	}
 
 	return ss.str();
+}
+
+void Hand::clear()
+{
+	this->values.clear();
 }

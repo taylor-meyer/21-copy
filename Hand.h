@@ -20,5 +20,6 @@ public:
 	std::string printHiddenSum();
 	std::string printHidden();
 	std::string printReveal();
+	void clear();
 };
 #endif

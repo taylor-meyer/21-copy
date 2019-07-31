@@ -51,84 +51,99 @@ int main()
 	switch (menu())
 	{
 	case 1:
-		ClearScreen();
-
-		// Deal player, opp, player, opp
-		p1.pushCard(shoe.dealCard());
-		opp.pushCard(shoe.dealCard());
-		p1.pushCard(shoe.dealCard());
-		opp.pushCard(shoe.dealCard());
-
-		// Show opponent (first card hidden)
-		std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
-
-		// Show what player has to start
-		std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
-
-		// Loop will break when player stays or busts.
 		while (true)
 		{
-			if (p1.sum() > 21) // Break if bust
-				break;
-			int hitorstay;
-			std::cout << "Enter 1 to hit (anything else to stay): ";
-			std::cin >> hitorstay; // Ask to hit or stay
-			
 			ClearScreen();
 
-			if (hitorstay != 1)
-				break; // Break if stay
-			p1.pushCard(shoe.dealCard()); // Deal a card
+			// Deal player, opp, player, opp
+			p1.pushCard(shoe.dealCard());
+			opp.pushCard(shoe.dealCard());
+			p1.pushCard(shoe.dealCard());
+			opp.pushCard(shoe.dealCard());
 
 			// Show opponent (first card hidden)
 			std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
-			// Show what player has
+			// Show what player has to start
 			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
-		}
 
-		// Opponent hits until 17
-		while (opp.sum() < 17)
-			opp.pushCard(shoe.dealCard());
+			// Loop will break when player stays or busts.
+			while (true)
+			{
+				if (p1.sum() > 21) // Break if bust
+					break;
+				int hitorstay;
+				std::cout << "Enter 1 to hit (anything else to stay): ";
+				std::cin >> hitorstay; // Ask to hit or stay
 
-		ClearScreen();
+				ClearScreen();
 
-		// Show opponent (first card hidden)
-		std::cout << "Opp:\n" << opp.printReveal() << std::endl << opp.sum() << std::endl << std::endl;
+				if (hitorstay != 1)
+					break; // Break if stay
+				p1.pushCard(shoe.dealCard()); // Deal a card
 
-		// Show what player has to start
-		std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+				// Show opponent (first card hidden)
+				std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
-		// Determine winner
+				// Show what player has
+				std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+			}
 
-		// Draw
-		if (p1.sum() == opp.sum())
-			std::cout << "Draw!\n\n";
-		// Player wins
-		else if(
+			// Opponent hits until 17
+			while (opp.sum() < 17)
+				opp.pushCard(shoe.dealCard());
 
-			 (p1.sum() <= 21 && (p1.sum() > opp.sum()) || (opp.sum() > 21))
+			ClearScreen();
+
+			// Show opponent (first card hidden)
+			std::cout << "Opp:\n" << opp.printReveal() << std::endl << opp.sum() << std::endl << std::endl;
+
+			// Show what player has to start
+			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+
+			// Determine winner
+
+			// Draw
+			if (p1.sum() == opp.sum())
+				std::cout << "Draw!\n\n";
+			// Player wins
+			else if (
+
+				(p1.sum() <= 21 && (p1.sum() > opp.sum()) || (opp.sum() > 21))
 				||
 				(p1.sum() > 21 && opp.sum() > 21 && p1.sum() < opp.sum())
 				)
-			std::cout << "You win!\n\n";
-		// Opponent wins
-		else if
-			(
-			(opp.sum() <= 21 && (opp.sum() > p1.sum()) || (p1.sum() > 21))
-				||
-				(opp.sum() > 21 && p1.sum() > 21 && opp.sum() < p1.sum())
-				)
-			std::cout << "Opponent wins!\n\n";
-		else
-			std::cout << "ERROR, ELSE-IF WIN CONDITIONS!\n\n";
+				std::cout << "You win!\n\n";
+			// Opponent wins
+			else if
+				(
+				(opp.sum() <= 21 && (opp.sum() > p1.sum()) || (p1.sum() > 21))
+					||
+					(opp.sum() > 21 && p1.sum() > 21 && opp.sum() < p1.sum())
+					)
+				std::cout << "Opponent wins!\n\n";
+			else
+				std::cout << "ERROR, ELSE-IF WIN CONDITIONS!\n\n";
+
+			bool again = false;
+			std::cout << "\nPlay again (0 for no)? ";
+			std::cin >> again;
+
+			if (!again)
+				break;
+			else // Reset hands & shoe
+			{
+				shoe.fillShoe();
+				p1.clear();
+				opp.clear();
+			}
+		}
 
 		//std::cout << "Shoe:\n" << shoe.toString() << "\n   Sum: " << shoe.sum() << std::endl << std::endl;
 
-
 		// sys(pause) is bad practice but we are just playing for now
-		system("PAUSE");
-		exit(0);
+		//system("PAUSE");
+		//exit(0);
 
 	case 0:
 		std::cout << "Exiting...\n";
