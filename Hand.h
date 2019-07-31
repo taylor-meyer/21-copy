@@ -17,6 +17,7 @@ public:
 	void pushCard(int);
 	int dealCard();
 	int sum();
+	std::string printHiddenSum();
 	std::string printHidden();
 	std::string printReveal();
 };

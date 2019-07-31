@@ -51,12 +51,16 @@ int main()
 	switch (menu())
 	{
 	case 1:
+		ClearScreen();
 
 		// Deal player, opp, player, opp
 		p1.pushCard(shoe.dealCard());
 		opp.pushCard(shoe.dealCard());
 		p1.pushCard(shoe.dealCard());
 		opp.pushCard(shoe.dealCard());
+
+		// Show opponent (first card hidden)
+		std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
 		// Show what player has to start
 		std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
@@ -69,9 +73,17 @@ int main()
 			int hitorstay;
 			std::cout << "Enter 1 to hit (anything else to stay): ";
 			std::cin >> hitorstay; // Ask to hit or stay
+			
+			ClearScreen();
+
 			if (hitorstay != 1)
 				break; // Break if stay
 			p1.pushCard(shoe.dealCard()); // Deal a card
+
+			// Show opponent (first card hidden)
+			std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
+
+			// Show what player has
 			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 		}
 
@@ -79,7 +91,13 @@ int main()
 		while (opp.sum() < 17)
 			opp.pushCard(shoe.dealCard());
 
-		std::cout << "Opponent:\n" << opp.printReveal() << "\n   Sum: " << opp.sum() << std::endl << std::endl;
+		ClearScreen();
+
+		// Show opponent (first card hidden)
+		std::cout << "Opp:\n" << opp.printReveal() << std::endl << opp.sum() << std::endl << std::endl;
+
+		// Show what player has to start
+		std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 
 		// Determine winner
 
@@ -117,16 +135,6 @@ int main()
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 		exit(0);
 
-	case 2:
-		ClearScreen();
-		std::cout << "Screen is clear!\n\n";
-		// sys(pause) is bad practice but we are just playing for now
-		system("PAUSE");
-		ClearScreen();
-		std::cout << "Exiting...\n";
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-		exit(0);
-
 	default:
 		std::cout << "ERROR, DEFAULT MENU SWITCH STATEMENT!\n";
 	}
@@ -154,7 +162,6 @@ int menu()
 
 	std::string menu =
 		"1) Play a round.\n"
-		"2) Test clear screen.\n"
 		"0) Exit\n"
 		"Enter: ";
 	std::cout << menu;
