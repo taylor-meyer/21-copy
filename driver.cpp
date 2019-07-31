@@ -16,6 +16,7 @@ as a way to learn unity and get some 2D graphics going!
 
 */
 
+#include "ClearScreen.h" // ClearScreen()
 #include "Hand.h"
 #include <iostream>
 #include <time.h>
@@ -116,6 +117,16 @@ int main()
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 		exit(0);
 
+	case 2:
+		ClearScreen();
+		std::cout << "Screen is clear!\n\n";
+		// sys(pause) is bad practice but we are just playing for now
+		system("PAUSE");
+		ClearScreen();
+		std::cout << "Exiting...\n";
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		exit(0);
+
 	default:
 		std::cout << "ERROR, DEFAULT MENU SWITCH STATEMENT!\n";
 	}
@@ -143,6 +154,7 @@ int menu()
 
 	std::string menu =
 		"1) Play a round.\n"
+		"2) Test clear screen.\n"
 		"0) Exit\n"
 		"Enter: ";
 	std::cout << menu;
