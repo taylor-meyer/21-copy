@@ -58,7 +58,7 @@ int main()
 		opp.pushCard(shoe.dealCard());
 
 		// Show what player has to start
-		std::cout << "P1:\n" << p1.toString() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+		std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 
 		// Loop will break when player stays or busts.
 		while (true)
@@ -71,14 +71,14 @@ int main()
 			if (hitorstay != 1)
 				break; // Break if stay
 			p1.pushCard(shoe.dealCard()); // Deal a card
-			std::cout << "P1:\n" << p1.toString() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 		}
 
 		// Opponent hits until 17
 		while (opp.sum() < 17)
 			opp.pushCard(shoe.dealCard());
 
-		std::cout << "Opponent:\n" << opp.toString() << "\n   Sum: " << opp.sum() << std::endl << std::endl;
+		std::cout << "Opponent:\n" << opp.printReveal() << "\n   Sum: " << opp.sum() << std::endl << std::endl;
 
 		// Determine winner
 
@@ -123,9 +123,9 @@ int main()
 
 
 
-	std::cout << "Shoe:\n" << shoe.toString() << "\n   Sum: " << shoe.sum() << std::endl << std::endl;
+	std::cout << "Shoe:\n" << shoe.printReveal() << "\n   Sum: " << shoe.sum() << std::endl << std::endl;
 
-	std::cout << "P1:\n" << p1.toString() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+	std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
 
 	//std::cout << "P2:\n" << p2.toString() << "\n   Sum: " << p2.sum() << std::endl << std::endl;
 

@@ -41,7 +41,23 @@ int Hand::sum()
 	return sum;
 }
 
-std::string Hand::toString()
+std::string Hand::printHidden()
+{
+	std::ostringstream ss;
+	ss << "? ";
+
+	std::vector<int>::iterator itr = this->values.begin() + 1;
+
+	while (itr != this->values.end())
+	{
+		ss << std::setw(3) << *itr;
+		itr++;
+	}
+
+	return ss.str();
+}
+
+std::string Hand::printReveal()
 {
 	std::ostringstream ss;
 
