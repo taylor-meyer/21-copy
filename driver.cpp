@@ -79,10 +79,10 @@ int main()
 			opp.pushCard(shoe.dealCard());
 
 			// Show opponent (first card hidden)
-			std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
+			std::cout << "Opponent:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
 			// Show what player has to start
-			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+			std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl;
 
 			// Loop will break when player stays or busts.
 			while (true)
@@ -100,10 +100,10 @@ int main()
 				p1.pushCard(shoe.dealCard()); // Deal a card
 
 				// Show opponent (first card hidden)
-				std::cout << "Opp:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
+				std::cout << "Opponent:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
 				// Show what player has
-				std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+				std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl;
 			}
 
 			// Opponent hits until 17
@@ -113,10 +113,10 @@ int main()
 			ClearScreen();
 
 			// Show opponent (first card hidden)
-			std::cout << "Opp:\n" << opp.printReveal() << std::endl << opp.sum() << std::endl << std::endl;
+			std::cout << "Opponent:\n" << opp.printReveal() << std::endl << "(" << opp.sum() << ")\n" << std::endl;
 
 			// Show what player has to start
-			std::cout << "P1:\n" << p1.printReveal() << "\n   Sum: " << p1.sum() << std::endl << std::endl;
+			std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl;
 
 			// Determine winner
 
