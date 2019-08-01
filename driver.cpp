@@ -4,7 +4,7 @@ Code started:
 07/23/2019
 
 Last edit:
-07/31/2019
+07/32/2019
 
 I was playing the 21 dlc for Resident Evil 7
 and thought, "I can probably re-create this!"
@@ -26,23 +26,13 @@ as a way to learn Unity and get some 2D graphics going!
 
 // Function prototypes
 int menu();
+void exitSeconds(int);
 
 // Main
 int main()
 {
 	// Seed random
 	srand((unsigned int)time(NULL));
-
-	// Stats
-	int wins = 0;
-	int loss = 0;
-
-	// File for stats
-	std::string line;
-	std::ifstream infile;
-	infile.open("stats.dat", std::ios::in);
-	infile >> wins >> loss; // Load stats
-	infile.close();
 
 	// Introduction
 	std::string intro = "Welcome to my recreation of 21 from the "
@@ -54,8 +44,89 @@ int main()
 	// Printout
 	std::cout << intro << std::endl << rules << std::endl << std::endl;
 
-	// Print stats
-	std::cout << "Wins: " << wins << "\nLosses: " << loss << std::endl << std::endl;
+	
+
+
+
+
+
+	// Get login
+	std::string username;
+	std::string password;
+
+	std::cout << "Username: ";
+	std::getline(std::cin, username);
+	std::cout << "Password: ";
+	std::getline(std::cin, password);
+
+	// Process login
+	std::string line;
+	int linesread = 0; // To read every third line of file
+	std::ifstream logins("logins.dat", std::ios::in); // File
+	if (logins.is_open())
+	{
+		while (!logins.eof())
+		{
+			std::getline(logins, line);
+			if (linesread % 3 == 0)
+			{
+				if (line.compare(username) == 0) // Matching username
+				{
+					std::getline(logins, line); // Get password for that username
+					break;
+				}
+			}
+			linesread++;
+		}
+	}
+	else
+	{
+		std::cout << "Logins file not open.\n\n";
+		exitSeconds(2);
+	}
+
+	// Check password
+	if (line.compare(password) != 0)
+	{
+		std::cout << "Incorrect password.\n";
+		exitSeconds(2);
+	}
+	else
+		std::cout << "Welcome, " << username << std::endl;
+
+	// Stats
+	int wins = 0;
+	int loss = 0;
+
+	// File for stats
+	std::ifstream stats;
+	stats.open("stats.dat", std::ios::in);
+
+	// Process stats
+	linesread = 0;
+	if (stats.is_open())
+	{
+		while (!stats.eof())
+		{
+			std::getline(stats, line);
+			if (linesread % 4 == 0)
+			{
+				if (line.compare(username) == 0)
+				{
+					stats >> wins >> loss;
+				}
+			}
+			linesread++;
+		}
+	}
+	else
+	{
+		std::cout << "Stats file not open.\n\n";
+		exitSeconds(2);
+	}
+
+	// Show the players stats
+	std::cout << "\nWins: " << wins << "\nLoss: " << loss << std::endl;
 
 	// Declare shoe and players
 	Hand shoe; shoe.fillShoe(); // Shoe with all cards loaded
@@ -162,26 +233,21 @@ int main()
 			}
 		}
 
+		/*							NEED TO FIX
 		// Write new stats
 		std::ofstream outfile;
-		outfile.open("stats.dat", std::ofstream::out | std::ofstream::trunc);
+		outfile.open("stats.dat", std::ofstream::out);
 		outfile << wins << std::endl << loss;
 		outfile.close();
+		*/
+
 	}
-
-
 	case 0:
-		std::cout << "Exiting...\n";
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-		exit(0);
-
+		exitSeconds(2);
 	default:
 		std::cout << "ERROR, DEFAULT MENU SWITCH STATEMENT!\n";
+		exitSeconds(2);
 	}
-
-
-
-
 
 	// sys(pause) is bad practice but we are just playing for now
 	system("PAUSE");
@@ -201,4 +267,11 @@ int menu()
 	std::cin >> choice;
 
 	return choice;
+}
+
+void exitSeconds(int n)
+{
+	std::cout << "Exiting...\n";
+	std::this_thread::sleep_for(std::chrono::seconds(n));
+	exit(0);
 }
