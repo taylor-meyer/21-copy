@@ -93,7 +93,7 @@ int main()
 		exitSeconds(2);
 	}
 	else
-		std::cout << "Welcome, " << username << std::endl;
+		std::cout << "\nWelcome, " << username << std::endl << std::endl;
 
 
 
