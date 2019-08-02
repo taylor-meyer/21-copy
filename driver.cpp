@@ -119,7 +119,8 @@ int main()
 			players.push_back(Player(username2, wins, loss));
 		}
 	}
-
+	stats.close();
+	
 	/*
 	// Test print stats
 	std::vector<Player>::iterator itr = players.begin();
@@ -132,9 +133,11 @@ int main()
 		itr++;
 	}
 	*/
+	
 
 	// Search for user to assign player Object
 	Player P;
+	int index;
 	auto it = std::find_if(players.begin(), players.end(), [&username](Player &obj)
 	{
 		return obj.getUsername() == username;
@@ -142,7 +145,7 @@ int main()
 	if (it != players.end())
 	{
 		// Index for later
-		auto index = std::distance(players.begin(), it);
+		index = std::distance(players.begin(), it);
 		// Set values
 		P.setUsername(username);
 		P.setWins((*it).getWins());
@@ -258,14 +261,22 @@ int main()
 			}
 		}
 
-		/*							NEED TO FIX
-		// Write new stats
-		std::ofstream outfile;
-		outfile.open("stats.dat", std::ofstream::out);
-		outfile << wins << std::endl << loss;
-		outfile.close();
-		*/
+		players[index] = P;
 
+		
+		// Write new stats
+		// Open outfile and clear it because we are saving the entire vector back
+		std::ofstream statsout("stats.dat", std::ofstream::out | std::ofstream::trunc);
+
+		for (auto outitr = players.begin(); outitr != players.end(); outitr++)
+		{
+			statsout << (*outitr).getUsername() << "\n"
+				<< (*outitr).getWins() << "\n"
+				<< (*outitr).getLosses();
+			if (outitr != players.end() - 1) // Do this to avoid trailing endl
+				statsout << "\n";
+		}
+		statsout.close();
 	}
 	case 0:
 		exitSeconds(2);
