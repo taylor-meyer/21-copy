@@ -1,10 +1,5 @@
 #include "Hand.h"
 
-Hand::Hand()
-{
-
-}
-
 void Hand::fillShoe()
 {
 	if (!this->values.empty())

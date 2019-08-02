@@ -12,7 +12,6 @@ class Hand
 private:
 	std::vector<int> values;
 public:
-	Hand();
 	void fillShoe();
 	void pushCard(int);
 	int dealCard();
