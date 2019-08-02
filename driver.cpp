@@ -18,6 +18,8 @@ as a way to learn Unity and get some 2D graphics going!
 
 #include "ClearScreen.h" // ClearScreen()
 #include "Hand.h" // Opponent/Player/Shoe
+#include "Player.h"
+#include <algorithm>
 #include <chrono> //std::chrono::seconds
 #include <fstream> // Read/write stats
 #include <iostream> // std::cout,std::cin
@@ -44,7 +46,6 @@ int main()
 	// Printout
 	std::cout << intro << std::endl << rules << std::endl << std::endl;
 
-	
 
 
 
@@ -94,39 +95,63 @@ int main()
 	else
 		std::cout << "Welcome, " << username << std::endl;
 
-	// Stats
-	int wins = 0;
-	int loss = 0;
 
-	// File for stats
-	std::ifstream stats;
-	stats.open("stats.dat", std::ios::in);
 
-	// Process stats
-	linesread = 0;
-	if (stats.is_open())
-	{
-		while (!stats.eof())
-		{
-			std::getline(stats, line);
-			if (linesread % 4 == 0)
-			{
-				if (line.compare(username) == 0)
-				{
-					stats >> wins >> loss;
-				}
-			}
-			linesread++;
-		}
-	}
-	else
+
+	// Load stats file into a vector
+	std::vector<Player> players;
+
+	std::string username2;
+	int wins;
+	int loss;
+
+	std::ifstream stats("stats.dat", std::ios::in);
+	if (!stats.is_open())
 	{
 		std::cout << "Stats file not open.\n\n";
 		exitSeconds(2);
 	}
+	else
+	{
+		while (!stats.eof())
+		{
+			stats >> username2 >> wins >> loss;
+			players.push_back(Player(username2, wins, loss));
+		}
+	}
 
-	// Show the players stats
-	std::cout << "\nWins: " << wins << "\nLoss: " << loss << std::endl;
+	/*
+	// Test print stats
+	std::vector<Player>::iterator itr = players.begin();
+	while (itr != players.end())
+	{
+		std::cout << "\nUsername: " << (*itr).getUsername()
+			<< "\nWins: " << (*itr).getWins()
+			<< "\nLosses: " << (*itr).getLosses()
+			<< std::endl;
+		itr++;
+	}
+	*/
+
+	// Search for user to assign player Object
+	Player P;
+	auto it = std::find_if(players.begin(), players.end(), [&username](Player &obj)
+	{
+		return obj.getUsername() == username;
+	});
+	if (it != players.end())
+	{
+		// Index for later
+		auto index = std::distance(players.begin(), it);
+		// Set values
+		P.setUsername(username);
+		P.setWins((*it).getWins());
+		P.setLosses((*it).getLosses());
+	}
+
+
+
+
 
 	// Declare shoe and players
 	Hand shoe; shoe.fillShoe(); // Shoe with all cards loaded
@@ -203,7 +228,7 @@ int main()
 				)
 			{
 				std::cout << "You win!\n\n";
-				wins++;
+				P.incrementWins();
 			}
 			// Opponent wins
 			else if
@@ -214,7 +239,7 @@ int main()
 					)
 			{
 				std::cout << "Opponent wins!\n\n";
-				loss++;
+				P.incrementLoss();
 			}
 			else
 				std::cout << "ERROR, ELSE-IF WIN CONDITIONS!\n\n";
