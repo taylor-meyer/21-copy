@@ -150,9 +150,8 @@ int main()
 		P.setUsername(username);
 		P.setWins((*it).getWins());
 		P.setLosses((*it).getLosses());
+		P.setFingers(5);
 	}
-
-
 
 
 

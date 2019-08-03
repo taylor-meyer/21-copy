@@ -5,7 +5,8 @@ Player::Player() {}
 Player::Player(std::string username, int wins, int loss) :
 	username(username),
 	wins(wins),
-	loss(loss) {}
+	loss(loss),
+	fingers(5) {}
 
 std::string Player::getUsername()
 {
@@ -22,6 +23,11 @@ int Player::getLosses()
 	return this->loss;
 }
 
+int Player::getFingers()
+{
+	return this->fingers;
+}
+
 void Player::setUsername(std::string username)
 {
 	this->username = username;
@@ -35,6 +41,11 @@ void Player::setWins(int wins)
 void Player::setLosses(int loss)
 {
 	this->loss = loss;
+}
+
+void Player::setFingers(int fingers)
+{
+	this->fingers = fingers;
 }
 
 void Player::incrementWins()
