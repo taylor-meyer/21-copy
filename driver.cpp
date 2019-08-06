@@ -166,6 +166,7 @@ int main()
 	{
 	case 1:
 	{
+		int rounds_won = 0;
 		while (true)
 		{
 			ClearScreen();
@@ -180,7 +181,9 @@ int main()
 			std::cout << "Opponent:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
 			// Show what player has to start
-			std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl;
+			std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")"
+				"\n\nFingers left: " << P.getFingers() << std::endl
+				<< "Rounds won: " << rounds_won << std::endl;
 
 			// Loop will break when player stays or busts.
 			while (true)
@@ -201,7 +204,9 @@ int main()
 				std::cout << "Opponent:\n" << opp.printHidden() << std::endl << opp.printHiddenSum() << std::endl << std::endl;
 
 				// Show what player has
-				std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl;
+				std::cout << "Player:\n" << p1.printReveal() << "\n(" << p1.sum() << ")\n" << std::endl
+					<< "\n\nFingers left: " << P.getFingers() << std::endl
+					<< "Rounds won: " << rounds_won << std::endl;
 			}
 
 			// Opponent hits until 17
@@ -230,6 +235,7 @@ int main()
 				)
 			{
 				std::cout << "You win!\n\n";
+				rounds_won++;
 				P.incrementWins();
 			}
 			// Opponent wins
@@ -241,11 +247,18 @@ int main()
 					)
 			{
 				std::cout << "Opponent wins!\n\n";
+				P.loseFinger();
 				P.incrementLoss();
 			}
 			else
 				std::cout << "ERROR, ELSE-IF WIN CONDITIONS!\n\n";
 
+			system("PAUSE");
+
+			if (rounds_won == 5 || P.getFingers() == 0)
+				break;
+
+			/*
 			bool again = false;
 			std::cout << "\nPlay again (0 for no)? ";
 			std::cin >> again;
@@ -258,6 +271,10 @@ int main()
 				p1.clear();
 				opp.clear();
 			}
+			*/
+			shoe.fillShoe();
+			p1.clear();
+			opp.clear();
 		}
 
 		players[index] = P;

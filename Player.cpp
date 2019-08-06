@@ -57,3 +57,8 @@ void Player::incrementLoss()
 {
 	this->loss++;
 }
+
+void Player::loseFinger()
+{
+	this->fingers--;
+}

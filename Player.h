@@ -23,5 +23,6 @@ public:
 	void setFingers(int);
 	void incrementWins();
 	void incrementLoss();
+	void loseFinger();
 };
 #endif
