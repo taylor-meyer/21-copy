@@ -1,5 +1,6 @@
 Debug/
 *.vcxproj
 *.vcxproj.filters
+*.vcxproj.user
 stats.dat
 logins.dat
