@@ -236,7 +236,6 @@ int main()
 			{
 				std::cout << "You win!\n\n";
 				rounds_won++;
-				P.incrementWins();
 			}
 			// Opponent wins
 			else if
@@ -248,7 +247,6 @@ int main()
 			{
 				std::cout << "Opponent wins!\n\n";
 				P.loseFinger();
-				P.incrementLoss();
 			}
 			else
 				std::cout << "ERROR, ELSE-IF WIN CONDITIONS!\n\n";
@@ -256,7 +254,13 @@ int main()
 			system("PAUSE");
 
 			if (rounds_won == 5 || P.getFingers() == 0)
+			{
+				if (rounds_won == 5)
+					P.incrementWins();
+				else
+					P.incrementLoss();
 				break;
+			}
 
 			/*
 			bool again = false;
